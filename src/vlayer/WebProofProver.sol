@@ -29,6 +29,7 @@ contract WebProofProver is Prover {
         //     "choices[0].message.content"
         // );
         string memory judgement = web.jsonGetString("response");
+
         require(
             keccak256(abi.encodePacked(judgement)) ==
                 keccak256(abi.encodePacked("good")),

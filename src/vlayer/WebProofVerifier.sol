@@ -27,11 +27,6 @@ contract WebProofVerifier is Verifier {
     }
 
     function verifyT(string memory hashedPass) public {
-        require(
-            keccak256(abi.encodePacked(judgement)) ==
-                keccak256(abi.encodePacked("good")),
-            "Response must be 'good'"
-        );
         approved[hashedPass] = true;
     }
 }
