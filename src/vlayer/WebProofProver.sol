@@ -19,9 +19,8 @@ contract WebProofProver is Prover {
         "https://good-takes-only-frontend.vercel.app/api/chat";
 
     function main(
-        WebProof calldata webProof,
-        string memory hashedPass
-    ) public view returns (Proof memory, string memory, string memory) {
+        WebProof calldata webProof
+    ) public view returns (Proof memory) {
         Web memory web = webProof.verify(DATA_URL);
 
         // string memory screenName = web.jsonGetString("screen_name");
@@ -30,6 +29,11 @@ contract WebProofProver is Prover {
         //     "choices[0].message.content"
         // );
         string memory judgement = web.jsonGetString("response");
-        return (proof(), judgement, hashedPass);
+        require(
+            keccak256(abi.encodePacked(judgement)) ==
+                keccak256(abi.encodePacked("good")),
+            "Response must be 'good'"
+        );
+        return (proof());
     }
 }

@@ -15,18 +15,18 @@ contract WebProofVerifier is Verifier {
 
     function verify(
         Proof calldata,
-        string memory judgement,
         string memory hashedPass
     ) public onlyVerified(prover, WebProofProver.main.selector) {
-        require(
-            keccak256(abi.encodePacked(judgement)) ==
-                keccak256(abi.encodePacked("good")),
-            "Response must be 'good'"
-        );
+        // This logic needs to be in the other
+        // require(
+        //     keccak256(abi.encodePacked(judgement)) ==
+        //         keccak256(abi.encodePacked("good")),
+        //     "Response must be 'good'"
+        // );
         approved[hashedPass] = true;
     }
 
-    function verifyT(string memory judgement, string memory hashedPass) public {
+    function verifyT(string memory hashedPass) public {
         require(
             keccak256(abi.encodePacked(judgement)) ==
                 keccak256(abi.encodePacked("good")),
